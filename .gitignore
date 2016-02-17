@@ -1,0 +1,9 @@
+debug-build/*
+bin-debug/*
+release-build/*
+bin-release-temp/*
+.settings/*
+.actionScriptProperties
+.flexProperties
+.project
+sys$command
