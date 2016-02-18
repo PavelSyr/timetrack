@@ -5,11 +5,11 @@ package com.ish.view.components
 	import com.ish.commands.ResumeTaskCommand;
 	import com.ish.commands.RunTaskCommand;
 	import com.ish.commands.StopTaskCommand;
-	import com.ish.model.INotifiable;
+	import com.ish.interfaces.INotifiable;
 	import com.ish.model.TaskModel;
-	import com.ish.utils.ButtonPool;
-	import com.ish.utils.FunctioinMap;
-	import com.ish.utils.TextUtils;
+	import utils.ButtonPool;
+	import utils.FunctioinMap;
+	import utils.TextUtils;
 	import com.ish.view.components.buttons.Button;
 	
 	import flash.display.Sprite;
@@ -48,11 +48,11 @@ package com.ish.view.components
 		public function notify($data : Object) : void
 		{
 			var model : TaskModel = $data as TaskModel;
-			var result : Number = model.endDate - model.startDate;
+			var result : Number = model.result;
 			_startTimeTF.text = (model.startDate > 0)? TextUtils.getLocalTimeStr(model.startDate) : "0";
 			_endTimeTF.text = (model.endDate > 0)? TextUtils.getLocalTimeStr(model.endDate) : "0";
 			_pauseTF.text = (model.pauseDelay > 0)? TextUtils.getTimeStr(model.pauseDelay) : "0";
-			_resultTF.text = (result > 0)? TextUtils.getHours(result).toFixed(2) : "0"
+			_resultTF.text = (result > 0)?  TextUtils.getTimeStr(result)+ "/" + TextUtils.getHours(result).toFixed(2) : "0"
 			if (_taskTF.text && _taskTF.text.length > 0){
 				model.task = _taskTF.text;
 			} else {

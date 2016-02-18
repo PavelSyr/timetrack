@@ -1,4 +1,4 @@
-package com.ish.utils
+package utils
 {
 	import flash.utils.Dictionary;
 

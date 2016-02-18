@@ -1,5 +1,7 @@
 package com.ish.model
 {
+	import com.ish.interfaces.INotifiable;
+
 	public class AbstractModel
 	{
 		protected var _observerContainer : ObserverContainer;

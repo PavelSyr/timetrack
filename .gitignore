@@ -1,8 +1,8 @@
 debug-build/*
-bin-debug/*
-release-build/*
-bin-release-temp/*
-.settings/*
+app/bin-debug/*
+app/release-build/*
+app/bin-release-temp/*
+app/.settings/*
 .actionScriptProperties
 .flexProperties
 .project

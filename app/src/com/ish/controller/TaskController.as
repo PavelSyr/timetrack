@@ -1,10 +1,11 @@
 package com.ish.controller
 {
 	import com.ish.TaskEnum;
+	import com.ish.interfaces.ISerializable;
 	import com.ish.model.TaskModel;
-	import com.ish.utils.FunctioinMap;
+	import utils.FunctioinMap;
 	
-	public class TaskController
+	public class TaskController implements ISerializable
 	{
 		private var _stateMap  : FunctioinMap;
 		private var _model 	   : TaskModel;
@@ -42,6 +43,16 @@ package com.ish.controller
 		public function stop() : void
 		{
 			setState(TaskEnum.STATE_STOP);
+		}
+		
+		public function toObject() : Object
+		{
+			return _model.toObject();
+		}
+		
+		public function fromObject($obj : Object) : void
+		{
+			_model.fromObject($obj);
 		}
 		
 		private function setState($value : int) : void

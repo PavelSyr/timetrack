@@ -1,7 +1,7 @@
 package com.ish.view.components.buttons
 {
-	import com.ish.commands.ICommand;
-	import com.ish.utils.runCommand;
+	import com.ish.interfaces.ICommand;
+	import utils.runCommand;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;

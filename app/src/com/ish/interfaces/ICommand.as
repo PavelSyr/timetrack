@@ -1,4 +1,4 @@
-package com.ish.commands
+package com.ish.interfaces
 {
 	public interface ICommand
 	{

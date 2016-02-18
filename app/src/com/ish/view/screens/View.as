@@ -1,6 +1,6 @@
 package com.ish.view.screens
 {
-	import com.ish.model.INotifiable;
+	import com.ish.interfaces.INotifiable;
 	import com.ish.view.components.TaskView;
 	
 	import flash.display.Sprite;

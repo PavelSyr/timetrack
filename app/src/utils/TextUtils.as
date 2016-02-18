@@ -1,4 +1,4 @@
-package com.ish.utils
+package utils
 {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -33,7 +33,7 @@ package com.ish.utils
 		{
 			var date : Date = new Date();
 			date.setTime($timestamp);
-			return date.toLocaleTimeString();
+			return date.getHours() + ":" + getStr(date.getMinutes());
 		}
 		
 		public static function getTimeStr($timestamp : Number) : String
@@ -46,9 +46,8 @@ package com.ish.utils
 			$timestamp = $timestamp % 3600;
 			var ms: int = int($timestamp / 60);
 			var ss: int = $timestamp % 60;
-			var hStr : String = getStr(hs, true);
-			hStr = (hStr == "") ? "" : hStr + ":"
-			timeString = hStr + getStr(ms) + ":" + getStr (ss);// + "." + ((milliSeconds < 100)? "0"+milliSeconds: milliSeconds);
+			var hStr : String = getStr(hs);
+			timeString = hStr + ":" +  getStr(ms);// + ":" + getStr (ss);// + "." + ((milliSeconds < 100)? "0"+milliSeconds: milliSeconds);
 			return timeString;
 		}
 		

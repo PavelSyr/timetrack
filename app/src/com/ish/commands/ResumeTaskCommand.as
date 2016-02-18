@@ -1,6 +1,7 @@
 package com.ish.commands
 {
 	import com.ish.model.Model;
+	import com.ish.interfaces.ICommand;
 
 	public class ResumeTaskCommand implements ICommand
 	{

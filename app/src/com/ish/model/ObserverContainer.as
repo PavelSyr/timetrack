@@ -1,5 +1,7 @@
 package com.ish.model
 {
+	import com.ish.interfaces.INotifiable;
+
 	public class ObserverContainer
 	{
 		private var _observers : Vector.<INotifiable>;

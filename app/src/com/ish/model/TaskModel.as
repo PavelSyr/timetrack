@@ -1,7 +1,8 @@
 package com.ish.model
 {
+	import com.ish.interfaces.ISerializable;
 
-	public class TaskModel extends AbstractModel
+	public class TaskModel extends AbstractModel implements ISerializable
 	{
 		private var _state     : int;
 		private var _id		   : int;
@@ -14,6 +15,14 @@ package com.ish.model
 		{
 			super();
 			_task = "";
+			_startDate = 0;
+			_endDate = 0;
+			_pauseDelay = 0;
+		}
+		
+		public function get result () : Number
+		{
+			return _endDate - _startDate - _pauseDelay;
 		}
 
 		public function get pauseDelay():Number{return _pauseDelay;}
@@ -58,6 +67,30 @@ package com.ish.model
 				_state = value;
 				changed();
 			}
+		}
+		
+		public function toObject() : Object
+		{
+			var obj : Object = {};
+			obj.state = _state;
+			obj.id = _id;
+			obj.task = _task;
+			obj.startDate = _startDate;
+			obj.endDate = _endDate;
+			obj.pauseDelay = _pauseDelay;
+			return obj;
+		}
+		
+		public function fromObject($obj : Object) : void
+		{
+			if (!$obj) return;
+			_state = $obj.state;
+			_id = $obj.id;
+			_task = $obj.task;
+			_startDate = $obj.startDate;
+			_endDate = $obj.endDate;
+			_pauseDelay = $obj.pauseDelay;
+			changed();
 		}
 		
 		

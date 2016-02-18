@@ -1,4 +1,4 @@
-package com.ish.utils
+package utils
 {
 	import com.ish.view.components.buttons.Button;
 	import com.ish.view.components.buttons.CircleIconButton;

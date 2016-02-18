@@ -1,5 +1,6 @@
 package
 {
+	import com.ish.controller.Application;
 	import com.ish.model.Model;
 	import com.ish.view.screens.View;
 	
@@ -20,11 +21,13 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, initApp);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			var app : Application = Application.inst;
 			var model : Model = Model.inst;
 			var view : View = new View();
 			addChild(view);
 			model.addObserver(view);
-			model.addTask();
+			app.addObserver(model);
+			model.init();
 		}
 	}
 }

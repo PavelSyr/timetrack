@@ -1,4 +1,4 @@
-package com.ish.model
+package com.ish.interfaces
 {
 	public interface INotifiable
 	{
