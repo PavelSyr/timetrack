@@ -4,17 +4,17 @@ package com.ish.view.components
 	import com.ish.commands.PauseTaskCommand;
 	import com.ish.commands.ResumeTaskCommand;
 	import com.ish.commands.RunTaskCommand;
-	import com.ish.commands.StopTaskCommand;
 	import com.ish.interfaces.INotifiable;
 	import com.ish.model.TaskModel;
-	import utils.ButtonPool;
-	import utils.FunctioinMap;
-	import utils.TextUtils;
 	import com.ish.view.components.buttons.Button;
 	
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
+	
+	import utils.ButtonPool;
+	import utils.FunctioinMap;
+	import utils.TextUtils;
 	
 	public class TaskView extends Sprite implements INotifiable
 	{
@@ -25,17 +25,16 @@ package com.ish.view.components
 		private var _resultTF    : TextField;
 		private var _rectBtn     : Button;
 		private var _pauseBtn    : Button;
-		private var _stopBtn     : Button;
 		private var _state       : int;
 		private var _stateMap    : FunctioinMap;
 		
 		public function TaskView()
 		{
 			super();
-			draw(840, 35);
 			prepareComponents();
 			layout();
 			addChildren();
+			draw(770, 4);
 			_stateMap = new FunctioinMap();
 			_stateMap.map(TaskEnum.STATE_IDEL, toIdel);
 			_stateMap.map(TaskEnum.STATE_PAUSE, toPause);
@@ -61,7 +60,6 @@ package com.ish.view.components
 			state = model.state;
 			_rectBtn.data = model.id;
 			_pauseBtn.data = model.id;
-			_stopBtn.data = model.id;
 		}
 		
 		protected function set state ($state : int) : void
@@ -78,26 +76,27 @@ package com.ish.view.components
 			_endTimeTF	 = TextUtils.getDefaultTextField(100, tH, TextFieldType.DYNAMIC);
 			_pauseTF	 = TextUtils.getDefaultTextField(100, tH, TextFieldType.DYNAMIC);
 			_resultTF	 = TextUtils.getDefaultTextField(100, tH, TextFieldType.DYNAMIC);
-			_startTimeTF.border = 
-			_taskTF.border = 
-			_endTimeTF.border =
-			_pauseTF.border = 
+			
+			_startTimeTF.border = _taskTF.border = 
+			_endTimeTF.border =	_pauseTF.border = 
 			_resultTF.border = true;
 			
-			_rectBtn  = ButtonPool.getCircleButton();
-			_pauseBtn = ButtonPool.getPauseButton();
-			_stopBtn  = ButtonPool.getRectButton();
+			_startTimeTF.borderColor = _taskTF.borderColor = 
+			_endTimeTF.borderColor = _pauseTF.borderColor = 
+			_resultTF.borderColor = ButtonPool.BG_COLOR;
+			
+			_rectBtn  = ButtonPool.getLabelButton("Start");
+			_pauseBtn = ButtonPool.getLabelButton("Pause");
 			
 			_rectBtn.registerCommand(new RunTaskCommand());
 			_pauseBtn.registerCommand(new PauseTaskCommand());
-			_stopBtn.registerCommand(new StopTaskCommand());
 		}
 		
 		protected function layout () : void
 		{
 			var gap : int = 0;
 			_startTimeTF.x = 0;
-			_startTimeTF.y = (height - _startTimeTF.height) >> 1;
+			_startTimeTF.y = 0;
 			_taskTF.x = _startTimeTF.x + _startTimeTF.width + gap;
 			_taskTF.y = _startTimeTF.y;
 			_endTimeTF.x = _taskTF.x + _taskTF.width + gap;
@@ -106,10 +105,8 @@ package com.ish.view.components
 			_rectBtn.y = _startTimeTF.y;
 			_pauseBtn.x = _rectBtn.x;
 			_pauseBtn.y = _rectBtn.y;
-			_stopBtn.x = _pauseBtn.x + _pauseBtn.width + gap;
-			_stopBtn.y = _pauseBtn.y;
-			_pauseTF.x = _stopBtn.x + _stopBtn.width + gap;
-			_pauseTF.y = _stopBtn.y;
+			_pauseTF.x = _pauseBtn.x + _pauseBtn.width + gap;
+			_pauseTF.y = _pauseBtn.y;
 			_resultTF.x = _pauseTF.x + _pauseTF.width + gap;
 			_resultTF.y = _pauseTF.y;
 		}
@@ -122,16 +119,14 @@ package com.ish.view.components
 			addChild(_pauseTF);
 			addChild(_resultTF);
 			addChild(_rectBtn);
-			addChild(_stopBtn);
 			addChild(_pauseBtn);
 		}
 		
 		protected function draw($width : Number , $height : Number) : void
 		{
 			graphics.clear();
-			graphics.lineStyle(1, 0);
-			graphics.drawRect(0,0,$width,1);
-			graphics.drawRect(0,$height,$width,1);
+			graphics.beginFill(ButtonPool.BG_COLOR, 0.3);
+			graphics.drawRect(0,height,$width,$height);
 			graphics.lineStyle();
 		}
 		
@@ -163,8 +158,7 @@ package com.ish.view.components
 		private function toStop():void
 		{
 			_rectBtn.visible = false;
-			_pauseBtn.visible = false;
-			_stopBtn.visible = false;
+			_pauseBtn.visible = true;
 		}
 	}
 }

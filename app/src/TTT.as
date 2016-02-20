@@ -9,6 +9,7 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	
+	[SWF(frameRate = 1, backgroundColor = 0x0)]
 	public class TTT extends Sprite
 	{
 		public function TTT()
@@ -21,6 +22,8 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, initApp);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			stage.frameRate = 15;
+			stage.color = 0x9999AA;
 			var app : Application = Application.inst;
 			var model : Model = Model.inst;
 			var view : View = new View();
