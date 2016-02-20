@@ -13,7 +13,7 @@ package com.ish.view.screens
 		public function View()
 		{
 			super();
-			_commandView = new CommandView();
+			_commandView = new CommandView(770, 35);
 			_commandView.y = 2;
 			addChild(_commandView);
 		}

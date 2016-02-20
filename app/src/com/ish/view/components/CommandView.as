@@ -10,10 +10,10 @@ package com.ish.view.components
 	{
 		private var _buttons : Vector.<Button>
 		
-		public function CommandView()
+		public function CommandView($width : Number, $height : Number)
 		{
 			super();
-			draw(770, 35);
+			draw($width, $height);
 			prepareComponents();
 			layout();
 			addChildren();
