@@ -91,6 +91,19 @@ package com.ish.model
 			addTask();
 		}
 		
+		public function cleateTaskList() : void
+		{
+			var tc : TaskController
+			for (var i:int = 0; i < _tasks.length; i++) 
+			{
+				tc = _tasks[i];
+				tc.clear();
+				tc.dispose();
+				_tasks[i] = null;
+			}
+			_tasks.length = 0;
+		}
+		
 		public function getTaskControllerById($id : int) : TaskController
 		{
 			var tc : TaskController;

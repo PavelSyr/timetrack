@@ -7,5 +7,6 @@ package com.ish
 		public static const STATE_RESUME: int = 1;
 		public static const STATE_PAUSE : int = 2;
 		public static const STATE_STOP  : int = 3;
+		public static const STATE_CLEAR : int = 4;
 	}
 }

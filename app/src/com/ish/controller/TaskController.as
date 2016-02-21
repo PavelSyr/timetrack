@@ -3,6 +3,7 @@ package com.ish.controller
 	import com.ish.TaskEnum;
 	import com.ish.interfaces.ISerializable;
 	import com.ish.model.TaskModel;
+	
 	import utils.FunctioinMap;
 	
 	public class TaskController implements ISerializable
@@ -19,6 +20,7 @@ package com.ish.controller
 			_stateMap.map(TaskEnum.STATE_RESUME, resumeState);
 			_stateMap.map(TaskEnum.STATE_PAUSE, pauseState);
 			_stateMap.map(TaskEnum.STATE_STOP, stopState);
+			_stateMap.map(TaskEnum.STATE_CLEAR, clearState);
 		}
 		
 		public function idel():void
@@ -45,6 +47,11 @@ package com.ish.controller
 			setState(TaskEnum.STATE_STOP);
 		}
 		
+		public function clear():void
+		{
+			setState(TaskEnum.STATE_CLEAR);
+		}
+		
 		public function toObject() : Object
 		{
 			return _model.toObject();
@@ -53,6 +60,14 @@ package com.ish.controller
 		public function fromObject($obj : Object) : void
 		{
 			_model.fromObject($obj);
+		}
+		
+		public function dispose() : void
+		{
+			_model.dispose();
+			_model = null;
+			_stateMap.dispose();
+			_stateMap = null;
 		}
 		
 		private function setState($value : int) : void
@@ -90,6 +105,16 @@ package com.ish.controller
 		private function pauseState() : void
 		{
 			_model.endDate = new Date().time;
+		}
+		
+		
+		private function clearState():void
+		{
+			_model.endDate = 0;
+			_model.startDate = 0;
+			_model.pauseDelay = 0;
+			_model.id = -1;
+			_model.state = TaskEnum.STATE_CLEAR;
 		}
 	}
 }

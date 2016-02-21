@@ -22,5 +22,16 @@ package utils
 			if (f) f.call(null);
 			return f;
 		}
+		
+		public function dispose():void
+		{
+			for (var key: Object in _map) 
+			{
+				delete _map[key];
+			}
+			_map = null;
+			
+			
+		}
 	}
 }

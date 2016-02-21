@@ -93,11 +93,19 @@ package com.ish.model
 			changed();
 		}
 		
+		public function dispose():void
+		{
+			_state = 0;
+			_id = 0;
+			_task = null;
+			_startDate = 0;
+			_endDate = 0;
+			_pauseDelay = 0;
+		}
 		
 		private function changed() : void
 		{
 			_observerContainer.notifyAll(this);
 		}
-		
 	}
 }

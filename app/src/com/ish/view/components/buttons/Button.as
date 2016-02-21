@@ -52,6 +52,10 @@ package com.ish.view.components.buttons
 		{
 			removeListeners();
 			_command = null;
+			while(numChildren > 0){
+				removeChildAt(numChildren-1);
+			}
+			_data = null;
 		}
 		
 		protected function initDrawMap():void

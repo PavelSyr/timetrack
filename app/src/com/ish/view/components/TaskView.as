@@ -41,8 +41,8 @@ package com.ish.view.components
 			_stateMap.map(TaskEnum.STATE_RESUME, toResume);
 			_stateMap.map(TaskEnum.STATE_RUN, toRun);
 			_stateMap.map(TaskEnum.STATE_STOP, toStop);
+			_stateMap.map(TaskEnum.STATE_CLEAR, toClear);
 		}
-		
 		
 		public function notify($data : Object) : void
 		{
@@ -57,9 +57,9 @@ package com.ish.view.components
 			} else {
 				_taskTF.text = model.task;
 			}
-			state = model.state;
 			_rectBtn.data = model.id;
 			_pauseBtn.data = model.id;
+			state = model.state;
 		}
 		
 		protected function set state ($state : int) : void
@@ -160,5 +160,25 @@ package com.ish.view.components
 			_rectBtn.visible = false;
 			_pauseBtn.visible = true;
 		}
+		
+		private function toClear():void
+		{
+			while(numChildren > 0){
+				removeChildAt(numChildren-1);
+			}
+			_startTimeTF = null;
+			_taskTF = null;
+			_endTimeTF = null;
+			_pauseTF = null;
+			_resultTF = null;
+			_rectBtn.dispose();
+			_rectBtn = null;
+			_pauseBtn.dispose();
+			_pauseBtn = null;
+			_stateMap.dispose();
+			_stateMap = null;
+			if (parent)
+				parent.removeChild(this);
+		}	
 	}
 }
