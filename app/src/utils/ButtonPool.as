@@ -20,16 +20,18 @@ package utils
 		{
 		}
 		
-		public static function getLabelButton($text : String, $setup : Object = null) : Button
+		public static function getLabelButton($text : String, $setup : Object = null, bg_width : int = 0, bg_height : int = 0) : Button
 		{
-			var btn : Button = new LabelButton(BG_WIDTH, BG_HEIGHT, BG_COLOR, $text, BUTTON_TEXT_UP_COLOR, BUTTON_TEXT_DOWN_COLOR);
+			bg_width = (bg_width == 0)? BG_WIDTH : bg_width;
+			bg_height = (bg_height == 0)? BG_HEIGHT : bg_height;
+			var btn : Button = new LabelButton(bg_width, bg_height, BG_COLOR, $text, BUTTON_TEXT_UP_COLOR, BUTTON_TEXT_DOWN_COLOR);
 			if ($setup) LabelButton(btn).setupLabel($text, $setup);
 			return btn;
 		}
 		
 		public static function getCircleButton() : Button
 		{
-			var btn : Button = new CircleIconButton(BG_WIDTH, BG_HEIGHT, BG_COLOR, 0xFF0000);
+			var btn : Button = new CircleIconButton(BG_WIDTH * 0.3, BG_HEIGHT * 0.7, BG_COLOR, ICON_COLOR);
 			return btn
 		}
 		

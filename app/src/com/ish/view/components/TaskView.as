@@ -2,6 +2,7 @@ package com.ish.view.components
 {
 	import com.ish.TaskEnum;
 	import com.ish.commands.PauseTaskCommand;
+	import com.ish.commands.RemoveTaskCommand;
 	import com.ish.commands.ResumeTaskCommand;
 	import com.ish.commands.RunTaskCommand;
 	import com.ish.interfaces.INotifiable;
@@ -9,6 +10,7 @@ package com.ish.view.components
 	import com.ish.view.components.buttons.Button;
 	
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
 	
@@ -25,6 +27,7 @@ package com.ish.view.components
 		private var _resultTF    : TextField;
 		private var _rectBtn     : Button;
 		private var _pauseBtn    : Button;
+		private var _deleteBtn	 : Button;
 		private var _state       : int;
 		private var _stateMap    : FunctioinMap;
 		
@@ -59,6 +62,7 @@ package com.ish.view.components
 			}
 			_rectBtn.data = model.id;
 			_pauseBtn.data = model.id;
+			_deleteBtn.data = model.id;
 			state = model.state;
 		}
 		
@@ -87,9 +91,28 @@ package com.ish.view.components
 			
 			_rectBtn  = ButtonPool.getLabelButton("Start");
 			_pauseBtn = ButtonPool.getLabelButton("Pause");
+			_deleteBtn = ButtonPool.getLabelButton("X", null, 18);
 			
 			_rectBtn.registerCommand(new RunTaskCommand());
 			_pauseBtn.registerCommand(new PauseTaskCommand());
+			_deleteBtn.registerCommand(new RemoveTaskCommand());
+			_deleteBtn.visible = false;
+			
+			addEventListener(MouseEvent.MOUSE_OVER, onMouse);
+			addEventListener(MouseEvent.MOUSE_OUT, onMouse);
+		}
+		
+		protected function onMouse(event:MouseEvent):void
+		{
+			switch(event.type)
+			{
+				case MouseEvent.MOUSE_OUT:
+					_deleteBtn.visible = false
+					break;
+				case MouseEvent.MOUSE_OVER:
+					_deleteBtn.visible = true;
+					break;
+			}
 		}
 		
 		protected function layout () : void
@@ -109,6 +132,8 @@ package com.ish.view.components
 			_pauseTF.y = _pauseBtn.y;
 			_resultTF.x = _pauseTF.x + _pauseTF.width + gap;
 			_resultTF.y = _pauseTF.y;
+			_deleteBtn.x = _resultTF.x + _resultTF.width + gap;
+			_deleteBtn.y = (_resultTF.height - _deleteBtn.height) * 0.5;
 		}
 		
 		protected function addChildren () : void
@@ -120,6 +145,7 @@ package com.ish.view.components
 			addChild(_resultTF);
 			addChild(_rectBtn);
 			addChild(_pauseBtn);
+			addChild(_deleteBtn);
 		}
 		
 		protected function draw($width : Number , $height : Number) : void
@@ -177,6 +203,8 @@ package com.ish.view.components
 			_pauseBtn = null;
 			_stateMap.dispose();
 			_stateMap = null;
+			_deleteBtn.dispose();
+			_deleteBtn = null;
 			if (parent)
 				parent.removeChild(this);
 		}	

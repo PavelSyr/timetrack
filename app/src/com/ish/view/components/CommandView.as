@@ -1,7 +1,7 @@
 package com.ish.view.components
 {
 	import com.ish.commands.AddNewTaskCommand;
-	import com.ish.commands.ClearTaskLixtCommand;
+	import com.ish.commands.ClearTaskListCommand;
 	import com.ish.view.components.buttons.Button;
 	
 	import flash.display.Sprite;
@@ -29,7 +29,7 @@ package com.ish.view.components
 			btn.registerCommand(new AddNewTaskCommand());
 			_buttons.push(btn);
 			btn = ButtonPool.getLabelButton("clear");
-			btn.registerCommand(new ClearTaskLixtCommand());
+			btn.registerCommand(new ClearTaskListCommand());
 			_buttons.push(btn);
 		}
 		

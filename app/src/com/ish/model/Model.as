@@ -29,7 +29,7 @@ package com.ish.model
 		public function Model($arg : Arg)
 		{
 			super();
-			_rep = new SORepository("mode");
+			_rep = new SORepository("model");
 			_tasks = new Vector.<TaskController>();
 			_noteMap = new FunctioinMap();
 			_noteMap.map(Event.DEACTIVATE, save);
@@ -56,6 +56,27 @@ package com.ish.model
 			} else {
 				tc.idel();
 			}
+		}
+		
+		public function removeTask($id : int) : void
+		{
+			var tc : TaskController = getTaskControllerById($id);
+			if (tc){
+				tc.stop();
+				for (var i:int = 0; i < _tasks.length; i++) 
+				{
+					if (_tasks[i] == tc){
+						tc.clear();
+						tc.dispose();
+						_tasks[i] = null;
+						_tasks.splice(i,1);
+						break;
+					}
+				}
+			}
+			
+			_observerContainer.notifyAll(null);
+			save();
 		}
 		
 		public function runTask($id : int) : void
@@ -91,7 +112,7 @@ package com.ish.model
 			addTask();
 		}
 		
-		public function cleateTaskList() : void
+		public function clearTaskList() : void
 		{
 			var tc : TaskController
 			for (var i:int = 0; i < _tasks.length; i++) 
@@ -102,13 +123,19 @@ package com.ish.model
 				_tasks[i] = null;
 			}
 			_tasks.length = 0;
+			save();
 		}
 		
 		public function getTaskControllerById($id : int) : TaskController
 		{
 			var tc : TaskController;
-			if ($id < _tasks.length){
-				tc = _tasks[$id];
+			for (var i:int = 0; i < _tasks.length; i++) 
+			{
+				tc = _tasks[i] 
+				if(tc.id == $id)
+				{
+					return tc;
+				}
 			}
 			return tc;
 		}
@@ -120,14 +147,16 @@ package com.ish.model
 			{
 				obj[i] = _tasks[i].toObject();
 			}
-			return obj;
+			return {tasks : obj};
 		}
 		
 		public function fromObject($obj : Object) : void
 		{
-			for each (var t:Object in $obj) 
-			{
-				addTask(t);
+			if ($obj.hasOwnProperty("tasks")){
+				for each (var t:Object in $obj.tasks) 
+				{
+					addTask(t);
+				}
 			}
 		}
 		

@@ -23,6 +23,11 @@ package com.ish.controller
 			_stateMap.map(TaskEnum.STATE_CLEAR, clearState);
 		}
 		
+		public function get id () : int
+		{
+			return _model.id;
+		}
+		
 		public function idel():void
 		{
 			setState(TaskEnum.STATE_IDEL);
@@ -60,6 +65,7 @@ package com.ish.controller
 		public function fromObject($obj : Object) : void
 		{
 			_model.fromObject($obj);
+			setState(_model.state);
 		}
 		
 		public function dispose() : void
@@ -113,7 +119,6 @@ package com.ish.controller
 			_model.endDate = 0;
 			_model.startDate = 0;
 			_model.pauseDelay = 0;
-			_model.id = -1;
 			_model.state = TaskEnum.STATE_CLEAR;
 		}
 	}
